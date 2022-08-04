@@ -1,7 +1,8 @@
 package com.revature;
 
+import com.revature.services.ConnectionManager;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 
 
 public class Main {

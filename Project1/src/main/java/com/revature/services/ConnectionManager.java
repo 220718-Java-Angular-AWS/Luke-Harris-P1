@@ -1,4 +1,4 @@
-package com.revature;
+package com.revature.services;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,7 +11,6 @@ import java.util.Properties;
 public class ConnectionManager {
     private static Connection connection;
 
-    //private constructor for Singleton Design Pattern
     private ConnectionManager() {
 
     }
@@ -24,14 +23,11 @@ public class ConnectionManager {
     }
 
     private static void connect() {
-        //connect to database here
-        //The connection string we want to build for postgres: 	jdbc:postgresql://hostname:port/databaseName
+
 
 
         try {
             Properties props = new Properties();
-            //This part is commented out, because we are using the class path loading method instead
-            //FileReader reader = new FileReader("/../src/main/resources/jdbc.properties");
             ClassLoader loader = Thread.currentThread().getContextClassLoader();
             InputStream input = loader.getResourceAsStream("jdbc.properties");
             props.load(input);

@@ -2,7 +2,7 @@ package com.revature.pojos;
 
 import java.util.Objects;
 
-public class users {
+public class User {
     private Integer userId;
     private String firstName;
     private String lastName;
@@ -10,7 +10,11 @@ public class users {
     private String email;
     private boolean admin;
 
-    public users(Integer userId, String firstName, String lastName, String userPass, String email, boolean admin) {
+    public User() {
+
+    }
+
+    public User(Integer userId, String firstName, String lastName, String userPass, String email, boolean admin) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -19,13 +23,19 @@ public class users {
         this.admin = admin;
     }
 
-    public users(String firstName, String lastName, String userPass, String email, boolean admin) {
+    public User(String firstName, String lastName, String userPass, String email, boolean admin) {
         this.userId = null;
         this.firstName = firstName;
         this.lastName = lastName;
         this.userPass = userPass;
         this.email = email;
         this.admin = admin;
+    }
+    public User(String firstName, String lastName, String userPass, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userPass = userPass;
+        this.email = email;
     }
 
     public Integer getUserId() {
@@ -79,7 +89,7 @@ public class users {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        users user = (users) o;
+        User user = (User) o;
         return Objects.equals(userId, user.userId)  && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(userPass, user.userPass) && Objects.equals(email, user.email) && Objects.equals(admin, user.admin);
 
     }
