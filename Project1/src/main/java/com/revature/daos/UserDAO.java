@@ -14,17 +14,20 @@ public class UserDAO implements DatasourceCRUD<User> {
     Connection connection;
 
     public UserDAO() {
-        this.connection = ConnectionManager.getConnection();
+        this.connection = ConnectionManager.connectionManager.getConnection();
     }
 
     @Override
     public void create(User user) {
         try {
-            String sql = "INSERT INTO users (user_id, email_address, user_pass) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO users (first_name, last_name, user_pass, user_admin, email_address) VALUES (?, ?, ?, false, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1, user.getUserId());
-            pstmt.setString(2, user.getEmail());
-            pstmt.setString(3, user.getUserPass());
+            pstmt.setString(1, user.getFirstName());
+            pstmt.setString(2, user.getLastName());
+            pstmt.setString(3, user.getEmail());
+            pstmt.setString(4, user.getUserPass());
+
+            pstmt.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -42,8 +45,13 @@ public class UserDAO implements DatasourceCRUD<User> {
 
             if (results.next()) {
                 user.setUserId(results.getInt("user_id"));
-                user.setEmail(results.getString("email_address"));
+                user.setFirstName(results.getString("first_name"));
+                user.setLastName(results.getString("last_name"));
                 user.setUserPass(results.getString("user_pass"));
+                user.setAdmin(results.getBoolean("user_admin"));
+                user.setEmail(results.getString("email_address"));
+
+
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -62,9 +70,11 @@ public class UserDAO implements DatasourceCRUD<User> {
             while(results.next()) {
                 User user = new User();
                 user.setUserId(results.getInt("user_id"));
-                user.setEmail(results.getString("email_address"));
+                user.setFirstName(results.getString("first_name"));
+                user.setLastName(results.getString("last_name"));
                 user.setUserPass(results.getString("user_pass"));
-                userList.add(user);
+                user.setAdmin(results.getBoolean("user_admin"));
+                user.setEmail(results.getString("email_address"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -80,6 +90,7 @@ public class UserDAO implements DatasourceCRUD<User> {
             pstmt.setInt(1, user.getUserId());
             pstmt.setString(2, user.getEmail());
             pstmt.setString(3, user.getUserPass());
+            pstmt.executeUpdate();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

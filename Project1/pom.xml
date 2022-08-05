@@ -7,7 +7,7 @@
     <groupId>com.revature</groupId>
     <artifactId>Project1</artifactId>
     <version>1.0</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

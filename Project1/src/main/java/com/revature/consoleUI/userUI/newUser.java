@@ -1,15 +1,15 @@
-package com.revature.consoleUI;
+package com.revature.consoleUI.userUI;
 
-import com.revature.daos.UserDAO;
+import com.revature.consoleUI.View;
 import com.revature.pojos.User;
 import com.revature.services.ConsoleService;
 import com.revature.services.UserService;
 
 import java.util.Scanner;
 
-public class NewUser extends View {
+public class newUser extends View {
     private UserService service;
-    public NewUser() {
+    public newUser() {
         viewName = "NewUser";
         consoleService = ConsoleService.getConsoleService();
         service = new UserService();

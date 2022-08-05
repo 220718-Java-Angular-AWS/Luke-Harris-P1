@@ -13,18 +13,17 @@ import java.util.List;
 public class RequestsDAO implements DatasourceCRUD<Requests> {
     Connection connection;
     public RequestsDAO() {
-        connection = ConnectionManager.getConnection();
+        connection = ConnectionManager.connectionManager.getConnection();
 
     }
     @Override
     public void create(Requests requests) {
         try {
-            String sql = "INSERT INTO request (request_id, user_id, reason_for_reimbursement, reason_for_request, approved_denied) VALUES (?, ?, ?, ?, false)";
+            String sql = "INSERT INTO request (user_id, reason_for_reimbursement, reason_for_request, approved_denied) VALUES (?, ?, ?, false)";
             PreparedStatement pstmt = connection.prepareStatement(sql);
-            pstmt.setInt(1, requests.getRequest_id());
-            pstmt.setInt(2, requests.getUser_id());
-            pstmt.setString(3, requests.getReason_for_reimbursement());
-            pstmt.setString(4, requests.getReason_for_request());
+            pstmt.setInt(1, requests.getUser_id());
+            pstmt.setString(2, requests.getReason_for_reimbursement());
+            pstmt.setString(3, requests.getReason_for_request());
 
             pstmt.executeUpdate();
 
@@ -49,6 +48,7 @@ public class RequestsDAO implements DatasourceCRUD<Requests> {
                 requests.setUser_id(results.getInt("user_id"));
                 requests.setReason_for_reimbursement(results.getString("reason_for_reimbursement"));
                 requests.setReason_for_request(results.getString("reason_for_request"));
+                requests.setAmount_requested(results.getDouble("amount_requested"));
                 requests.setApproved_denied(results.getBoolean("approved_denied"));
             }
         } catch (SQLException e) {
@@ -71,6 +71,7 @@ public class RequestsDAO implements DatasourceCRUD<Requests> {
                 requests.setUser_id(results.getInt("user_id"));
                 requests.setReason_for_reimbursement(results.getString("reason_for_reimbursement"));
                 requests.setReason_for_request(results.getString("reason_for_request"));
+                requests.setAmount_requested(results.getDouble("amount_requested"));
                 requests.setApproved_denied(results.getBoolean("approved_denied"));
             }
         } catch (SQLException e) {
